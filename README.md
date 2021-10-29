@@ -1,4 +1,4 @@
-# gulp4 / Animation Heart
+# gulp4 / Animation Halloween
 
 ### Создать зависимости
 `npm i`
