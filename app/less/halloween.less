@@ -202,6 +202,25 @@
   animation: linear bat_fly 13s 25s infinite;
 }
 
+.header {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-family: Cadabra, sans-serif;
+  font-size: 100px;
+  z-index: 10;
+  color: transparent;
+  //mix-blend-mode: color-burn;
+  background: -webkit-linear-gradient(#0038c6, #a900bd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 1s;
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  animation: linear header_filter 30s infinite;
+}
+
 
 @keyframes go_z1 {
   100% {
@@ -293,3 +312,10 @@
     background: url("../img/dest/bg.webp") center center/cover no-repeat no-repeat;
   }
 }
+
+@keyframes header_filter {
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
