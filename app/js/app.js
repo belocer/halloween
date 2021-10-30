@@ -6,6 +6,7 @@ window.addEventListener('load', () => {
     const front_mountain = document.querySelector('.front_mountain');
     const back_trees = document.querySelector('.back_trees');
     const front_trees = document.querySelector('.front_trees');
+    const cloud = document.querySelector('.cloud');
 
     container.addEventListener('mousemove', moveBackground);
     let xOld = 0;
@@ -20,11 +21,13 @@ window.addEventListener('load', () => {
                 front_mountain.style.left = `-95px`;
                 back_trees.style.left = `-70px`;
                 front_trees.style.left = `-60px`;
+                cloud.style.left = `-100px`;
             } else { // влево
                 back_mountain.style.left = `-90px`;
                 front_mountain.style.left = `-60px`;
                 back_trees.style.left = `-25px`;
                 front_trees.style.left = `0`;
+                cloud.style.left = `0`;
             }
 
             let yNew = e.screenY;
@@ -48,9 +51,13 @@ window.addEventListener('load', () => {
         }, 2000)
     }
 
-
-
     function clearTagStyle(el) {
         el.forEach(item => item.removeAttribute('style'));
     }
+
+    /* Портал в конце пути, персоны */
+    /*let person1 = document.querySelector('.person1');
+    setInterval(() => {
+        console.log(window.getComputedStyle(person1).left);
+    }, 1000);*/
 });

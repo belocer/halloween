@@ -8,13 +8,12 @@
   background: rgba(43, 121, 153, 0.84);
 }
 
-.cloud {
-  background: url("../img/dest/cloud.webp") center center /cover no-repeat no-repeat;
+.container_cloud {
   width: 100%;
   height: 250px;
   position: absolute;
   top: 0;
-  left: 0;
+  left: -50px;
   z-index: 40;
   display: flex;
   justify-content: center;
@@ -55,6 +54,24 @@
   }
 }
 
+.cloud {
+  background: url("../img/dest/cloud.webp") center center /cover no-repeat no-repeat;
+  width: calc(100% + 100px);
+  height: 250px;
+  position: absolute;
+  top: 0;
+  left: -50px;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  transition: all 1s;
+
+  @media screen and (max-width: 700px) {
+    width: calc(100% + 100px);
+    height: 75px;
+  }
+}
+
 .back_mountain {
   background: url(../img/dest/back_mountain.webp) center center/cover no-repeat no-repeat;
   width: calc(100% + 200px);
@@ -64,6 +81,7 @@
   left: -100px;
   filter: brightness(0.85);
   transition: all 2s;
+  animation: linear opacity_start 10s forwards;
 }
 
 .front_mountain {
@@ -108,7 +126,8 @@
   justify-content: flex-end;
   align-items: flex-end;
   filter: hue-rotate(0deg);
-  animation: linear filter_pumpkin 50s infinite, linear disco_rotate 5s infinite;
+  opacity: 0;
+  animation: linear filter_pumpkin 50s infinite, linear disco_rotate 5s infinite, linear opacity_start 10s forwards;
   z-index: 40;
 
   .person {
@@ -121,7 +140,7 @@
     height: 100px;
     width: 100px;
     background: url(../img/dest/z1.webp) 0 0;
-    animation: go_z1 1s steps(10) infinite, linear person_go 10s 0s infinite;
+    animation: go_z1 1s steps(10) infinite, linear person_go 10s 3s infinite;
   }
 
   .person2 {
@@ -202,23 +221,44 @@
   animation: linear bat_fly 13s 25s infinite;
 }
 
-.header {
+.wrap_header {
   position: absolute;
   left: 50%;
   top: 30%;
   transform: translate(-50%, -50%);
-  font-family: Cadabra, sans-serif;
-  font-size: 100px;
   z-index: 10;
   color: transparent;
-  //mix-blend-mode: color-burn;
-  background: -webkit-linear-gradient(#0038c6, #a900bd);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   transition: 1s;
-  opacity: 0.9;
   mix-blend-mode: screen;
-  animation: linear header_filter 30s infinite;
+  text-align: center;
+
+  .headerH1 {
+    font-family: Cadabra, sans-serif;
+    font-size: 100px;
+    background: -webkit-linear-gradient(#0038c6, #a900bd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: linear header_filter 30s infinite;
+
+    @media screen and (max-width: 700px) {
+      font-size: 40px;
+    }
+  }
+
+  .headerH2 {
+    margin-top: -50px;
+    font-family: Cadabra, sans-serif;
+    font-size: 20px;
+    background: -webkit-linear-gradient(#0038c6, #a900bd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: linear header_filter 20s infinite;
+
+    @media screen and (max-width: 700px) {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  }
 }
 
 
@@ -319,3 +359,42 @@
   }
 }
 
+@keyframes opacity_start {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity_start_video {
+  100% {
+    opacity: 0;
+  }
+}
+
+#f__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 122;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 1;
+  animation: linear opacity_start_video 11s forwards;
+}
+
+#front__video {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  object-fit: cover;
+  z-index: 122;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 1;
+  animation: linear opacity_start_video 11s forwards;
+}
