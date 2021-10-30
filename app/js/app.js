@@ -56,8 +56,25 @@ window.addEventListener('load', () => {
     }
 
     /* Портал в конце пути, персоны */
-    /*let person1 = document.querySelector('.person1');
+    let person1 = document.querySelector('.person1');
+    let portal = document.querySelector('.portal');
+    let portal_right = document.querySelector('.portal_right');
+    let debounce = 0;
+
     setInterval(() => {
-        console.log(window.getComputedStyle(person1).left);
-    }, 1000);*/
+        clearTimeout(debounce);
+        let left_person = Math.floor(window.getComputedStyle(person1).left.replace('px', ''));
+        if (left_person >= window.screen.width - 350) {
+            setTimeout(() => {
+                open_portal()
+            }, 600)
+        }
+    }, 600);
+
+    function open_portal() {
+        portal_right.classList.add('opacity1');
+        setTimeout(() => portal_right.classList.remove('opacity1'), 600);
+        portal.classList.add('opacity03');
+        setTimeout(() => portal.classList.remove('opacity03'), 600);
+    }
 });
