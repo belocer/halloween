@@ -50,7 +50,6 @@ window.addEventListener('load', () => {
         clearTimeout(countClearAnim);
         countClearAnim = setTimeout(() => {
             clearTagStyle([back_mountain, front_mountain, back_trees, front_trees]);
-            obj.scene.rotation.y = 0
         }, 2000)
     }
 
@@ -83,18 +82,12 @@ window.addEventListener('load', () => {
 
     /** 3D Object **/
     let scene = new THREE.Scene();
-    let camera = new THREE.PerspectiveCamera(45, 600 / 600, 0.1, 1000)
+    let camera = new THREE.PerspectiveCamera(45, 600 / 600, 0.1, 5000)
     camera.position.z = 10; // отдалим камеру по оси Z
 
     let renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
     renderer.setClearColor(0x000000, 0); // Прозрачность фона
-
-    if (window.innerWidth < 700) {
-        renderer.setSize(200, 200); // Размер канваса
-        animate();
-    } else {
-        renderer.setSize(400, 400); // Размер канваса
-    }
+    renderer.setSize(200, 200); // Размер канваса
 
     renderer.domElement.setAttribute('id', 'webgl3D'); // Добавляем на страницу
     let webgl = document.getElementById('webgl');
@@ -114,6 +107,7 @@ window.addEventListener('load', () => {
     let obj = null;
 
     loader.load('../webgl/halloween_pumpkin/scene.gltf', function (gltf) {
+    //loader.load('https://googleman.ru/hw/webgl/halloween_pumpkin/scene.gltf', function (gltf) {
         //loader.load('../webgl/stilized_building/scene.gltf', function (gltf) {
         obj = gltf;
         obj.scene.scale.set(0.03, 0.03, 0.03)
@@ -126,7 +120,7 @@ window.addEventListener('load', () => {
         //requestAnimationFrame(animateRight);
 
         if (obj)
-            obj.scene.rotation.y += 0.009; // Скорость движения
+            obj.scene.rotation.y += 0.012; // Скорость движения
 
         renderer.render(scene, camera);
     }
@@ -140,12 +134,12 @@ window.addEventListener('load', () => {
         renderer.render(scene, camera);
     }
 
-
+    animate();
     function animate() {
-        //requestAnimationFrame(animateLeft);
+        requestAnimationFrame(animate);
 
         if (obj)
-            obj.scene.rotation.y -= 0.009; // Скорость движения
+            obj.scene.rotation.y -= 0.001; // Скорость движения
 
         renderer.render(scene, camera);
     }

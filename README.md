@@ -1,4 +1,4 @@
-# gulp4 / Animation Halloween
+# gulp4 / Animation Halloween WebGL
 
 ### Создать зависимости
 `npm i`
