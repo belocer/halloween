@@ -6,11 +6,10 @@
     <meta name="description" content="Страничка для анимаций">
     <title>Страничка для анимаций</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/app.min.css?ver=0.0.2">
+    <link rel="stylesheet" href="css/app.min.css?ver=0.0.3">
 </head>
 <body>
 <div class="container">
-
     <video autoplay="autoplay" muted="muted" playsinline id="front__video">
         <source src="video/4.webm" type="video/webm">
     </video>
@@ -20,6 +19,7 @@
         <source src="video/2.mp4" type="video/mp4">
     </video>
     <div class="wrap_header">
+        <div id="webgl"></div>
         <h1 class="headerH1">Halloween</h1>
         <h2 class="headerH2">31`th Oct</h2>
     </div>
@@ -49,6 +49,8 @@
     <div class="bat_fly1"></div>
     <div class="bat_fly2"></div>
 </div>
-<script src="js/app.min.js?ver=0.0.2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r123/three.min.js"></script>
+<script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js"></script>
+<script src="js/app.min.js?ver=0.0.3"></script>
 </body>
 </html>

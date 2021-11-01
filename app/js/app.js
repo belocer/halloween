@@ -22,12 +22,14 @@ window.addEventListener('load', () => {
                 back_trees.style.left = `-70px`;
                 front_trees.style.left = `-60px`;
                 cloud.style.left = `-100px`;
+                animateRight();
             } else { // влево
                 back_mountain.style.left = `-90px`;
                 front_mountain.style.left = `-60px`;
                 back_trees.style.left = `-25px`;
                 front_trees.style.left = `0`;
                 cloud.style.left = `0`;
+                animateLeft();
             }
 
             let yNew = e.screenY;
@@ -48,6 +50,7 @@ window.addEventListener('load', () => {
         clearTimeout(countClearAnim);
         countClearAnim = setTimeout(() => {
             clearTagStyle([back_mountain, front_mountain, back_trees, front_trees]);
+            obj.scene.rotation.y = 0
         }, 2000)
     }
 
@@ -74,7 +77,76 @@ window.addEventListener('load', () => {
     function open_portal() {
         portal_right.classList.add('opacity1');
         setTimeout(() => portal_right.classList.remove('opacity1'), 600);
-        portal.classList.add('opacity03');
-        setTimeout(() => portal.classList.remove('opacity03'), 600);
+        portal.classList.add('opacity045');
+        setTimeout(() => portal.classList.remove('opacity045'), 600);
+    }
+
+    /** 3D Object **/
+    let scene = new THREE.Scene();
+    let camera = new THREE.PerspectiveCamera(45, 600 / 600, 0.1, 1000)
+    camera.position.z = 10; // отдалим камеру по оси Z
+
+    let renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+    renderer.setClearColor(0x000000, 0); // Прозрачность фона
+
+    if (window.innerWidth < 700) {
+        renderer.setSize(200, 200); // Размер канваса
+        animate();
+    } else {
+        renderer.setSize(400, 400); // Размер канваса
+    }
+
+    renderer.domElement.setAttribute('id', 'webgl3D'); // Добавляем на страницу
+    let webgl = document.getElementById('webgl');
+    webgl.appendChild(renderer.domElement);
+
+    const aLight = new THREE.AmbientLight(0xb16d08, 2); // Добавляем свет в сцену
+    scene.add(aLight);
+
+    const pLight = new THREE.PointLight(0xffffff, 1.3);  // Позиция света
+    pLight.position.set(1, 1, 1);
+    scene.add(pLight);
+
+    /*const helper = new THREE.PointLightHelper(pLight);
+    scene.add(helper);*/
+
+    let loader = new THREE.GLTFLoader();
+    let obj = null;
+
+    loader.load('../webgl/halloween_pumpkin/scene.gltf', function (gltf) {
+        //loader.load('../webgl/stilized_building/scene.gltf', function (gltf) {
+        obj = gltf;
+        obj.scene.scale.set(0.03, 0.03, 0.03)
+
+        scene.add(obj.scene)
+    });
+    animateRight();
+
+    function animateRight() {
+        //requestAnimationFrame(animateRight);
+
+        if (obj)
+            obj.scene.rotation.y += 0.009; // Скорость движения
+
+        renderer.render(scene, camera);
+    }
+
+    function animateLeft() {
+        //requestAnimationFrame(animateLeft);
+
+        if (obj)
+            obj.scene.rotation.y -= 0.009; // Скорость движения
+
+        renderer.render(scene, camera);
+    }
+
+
+    function animate() {
+        //requestAnimationFrame(animateLeft);
+
+        if (obj)
+            obj.scene.rotation.y -= 0.009; // Скорость движения
+
+        renderer.render(scene, camera);
     }
 });
