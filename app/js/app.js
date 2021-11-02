@@ -1,4 +1,31 @@
 window.addEventListener('load', () => {
+    let objPortal = {
+        person: '.person1',
+        portal: '.portal',
+        portal_right: '.portal_right',
+        wrap_portal: '.wrap_portal',
+    }
+    let portal = new Portal(objPortal);
+    setInterval(() => portal.locatePerson(), 5)
+
+    let objPortal1 = {
+        person: '.person2',
+        portal: '.portal1',
+        portal_right: '.portal_right1',
+        wrap_portal: '.wrap_portal1',
+    }
+    let portal1 = new Portal(objPortal1);
+    setInterval(() => portal1.locatePerson(), 5)
+
+    let objPortal2 = {
+        person: '.person3',
+        portal: '.portal2',
+        portal_right: '.portal_right2',
+        wrap_portal: '.wrap_portal2',
+    }
+    let portal2 = new Portal(objPortal2);
+    setInterval(() => portal2.locatePerson(), 5)
+
     let bound = 0;
     let countClearAnim = 0;
     const container = document.querySelector('.container');
@@ -58,19 +85,10 @@ window.addEventListener('load', () => {
     }
 
     /* Портал в конце пути, персоны */
-    let person1 = document.querySelector('.person1');
+    /*let person1 = document.querySelector('.person1');
     let portal = document.querySelector('.portal');
     let portal_right = document.querySelector('.portal_right');
     let wrap_portal = document.querySelector('.wrap_portal');
-
-    let person2 = document.querySelector('.person2');
-    let portal1 = document.querySelector('.portal1');
-    let portal_right1 = document.querySelector('.portal_right1');
-    let wrap_portal1 = document.querySelector('.wrap_portal1');
-
-    // Двигаем портал на уровень персоны
-    let xxx1 = person2.getBoundingClientRect()
-    wrap_portal1.style.top = Math.floor(xxx1.top) + 'px';
 
     // Двигаем портал на уровень персоны
     let xxx = person1.getBoundingClientRect()
@@ -96,9 +114,10 @@ window.addEventListener('load', () => {
             setTimeout(() => {
                 person1.style.left = '';
                 person1.style.animation = '';
-            },2000)
+            }, 2000)
         }
-    }
+    }*/
+
 
     /** 3D Object **/
     let scene = new THREE.Scene();
@@ -127,7 +146,7 @@ window.addEventListener('load', () => {
     let obj = null;
 
     loader.load('../webgl/halloween_pumpkin/scene.gltf', function (gltf) {
-        //loader.load('https://googleman.ru/hw/webgl/halloween_pumpkin/scene.gltf', function (gltf) {
+        //    loader.load('https://googleman.ru/hw/webgl/halloween_pumpkin/scene.gltf', function (gltf) {
         //loader.load('../webgl/stilized_building/scene.gltf', function (gltf) {
         obj = gltf;
         obj.scene.scale.set(0.03, 0.03, 0.03);
@@ -165,3 +184,4 @@ window.addEventListener('load', () => {
         renderer.render(scene, camera);
     }
 });
+

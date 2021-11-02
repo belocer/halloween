@@ -30,6 +30,7 @@ function browsersync() {
 
 function scripts() {
     return src([
+        'app/js/Portal.js',
         'app/js/app.js',
     ])
         .pipe(sourcemaps.init())
