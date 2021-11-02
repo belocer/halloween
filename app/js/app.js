@@ -49,7 +49,7 @@ window.addEventListener('load', () => {
         }, 10)
         clearTimeout(countClearAnim);
         countClearAnim = setTimeout(() => {
-            clearTagStyle([back_mountain, front_mountain, back_trees, front_trees]);
+            clearTagStyle([back_mountain, front_mountain, back_trees, front_trees, cloud]);
         }, 2000)
     }
 
@@ -61,47 +61,43 @@ window.addEventListener('load', () => {
     let person1 = document.querySelector('.person1');
     let portal = document.querySelector('.portal');
     let portal_right = document.querySelector('.portal_right');
-    let debounce = 0;
+    let wrap_portal = document.querySelector('.wrap_portal');
 
-    setInterval(() => {
-        clearTimeout(debounce);
-        let left_person = Math.floor(window.getComputedStyle(person1).left.replace('px', ''));
-        if (left_person >= window.screen.width / 2 - 250) {
-            open_portal();
+    let person2 = document.querySelector('.person2');
+    let portal1 = document.querySelector('.portal1');
+    let portal_right1 = document.querySelector('.portal_right1');
+    let wrap_portal1 = document.querySelector('.wrap_portal1');
+
+    // Двигаем портал на уровень персоны
+    let xxx1 = person2.getBoundingClientRect()
+    wrap_portal1.style.top = Math.floor(xxx1.top) + 'px';
+
+    // Двигаем портал на уровень персоны
+    let xxx = person1.getBoundingClientRect()
+    wrap_portal.style.top = Math.floor(xxx.top) + 'px';
+
+    locatePerson();
+
+    function locatePerson() {
+        requestAnimationFrame(locatePerson);
+        let a = person1.getBoundingClientRect()
+        let b = wrap_portal.getBoundingClientRect()
+        // Hidden portal & person1
+        if (a.left >= b.left) {
+            person1.style.left = '';
+            person1.style.animation = 'none';
+            portal_right.classList.remove('opacity07');
+            portal.classList.remove('opacity03');
         }
-    }, 25);
-
-    let switchI = true;
-    function open_portal() {
-        portal_right.classList.add('opacity1');
-        portal.classList.add('opacity055');
-        switchI ? showPortal() : '';
-    }
-
-    function showPortal() {
-        switchI = false;
-        let r = 200;
-        let idInterval = setInterval(() => {
-            r -= 4;
-            portal.style.right = `-${r}px`;
-            portal_right.style.right = `-${r}px`;
-            if (r <= 5) {
-                close_portal();
-                clearInterval(idInterval);
-            }
-        }, 19);
-    }
-
-    function close_portal() {
-        person1.style.left = '-300px';
-        person1.style.animation = 'none';
-        switchI = true;
-        portal.style.right = ``;
-        portal_right.style.right = ``;
-        portal_right.classList.remove('opacity1');
-        portal.classList.remove('opacity055');
-
-        setTimeout(() => person1.style.animation = '', 1000);
+        // Show portal
+        if (a.left >= (b.left - 300) && a.left < b.left) {
+            portal_right.classList.add('opacity07');
+            portal.classList.add('opacity03');
+            setTimeout(() => {
+                person1.style.left = '';
+                person1.style.animation = '';
+            },2000)
+        }
     }
 
     /** 3D Object **/
