@@ -66,18 +66,42 @@ window.addEventListener('load', () => {
     setInterval(() => {
         clearTimeout(debounce);
         let left_person = Math.floor(window.getComputedStyle(person1).left.replace('px', ''));
-        if (left_person >= window.screen.width - 350) {
-            setTimeout(() => {
-                open_portal()
-            }, 600)
+        if (left_person >= window.screen.width / 2 - 250) {
+            open_portal();
         }
-    }, 600);
+    }, 25);
 
+    let switchI = true;
     function open_portal() {
         portal_right.classList.add('opacity1');
-        setTimeout(() => portal_right.classList.remove('opacity1'), 600);
-        portal.classList.add('opacity045');
-        setTimeout(() => portal.classList.remove('opacity045'), 600);
+        portal.classList.add('opacity055');
+        switchI ? showPortal() : '';
+    }
+
+    function showPortal() {
+        switchI = false;
+        let r = 200;
+        let idInterval = setInterval(() => {
+            r -= 4;
+            portal.style.right = `-${r}px`;
+            portal_right.style.right = `-${r}px`;
+            if (r <= 5) {
+                close_portal();
+                clearInterval(idInterval);
+            }
+        }, 19);
+    }
+
+    function close_portal() {
+        person1.style.left = '-300px';
+        person1.style.animation = 'none';
+        switchI = true;
+        portal.style.right = ``;
+        portal_right.style.right = ``;
+        portal_right.classList.remove('opacity1');
+        portal.classList.remove('opacity055');
+
+        setTimeout(() => person1.style.animation = '', 1000);
     }
 
     /** 3D Object **/
@@ -107,10 +131,10 @@ window.addEventListener('load', () => {
     let obj = null;
 
     loader.load('../webgl/halloween_pumpkin/scene.gltf', function (gltf) {
-    //loader.load('https://googleman.ru/hw/webgl/halloween_pumpkin/scene.gltf', function (gltf) {
+        //loader.load('https://googleman.ru/hw/webgl/halloween_pumpkin/scene.gltf', function (gltf) {
         //loader.load('../webgl/stilized_building/scene.gltf', function (gltf) {
         obj = gltf;
-        obj.scene.scale.set(0.03, 0.03, 0.03)
+        obj.scene.scale.set(0.03, 0.03, 0.03);
 
         scene.add(obj.scene)
     });
@@ -135,6 +159,7 @@ window.addEventListener('load', () => {
     }
 
     animate();
+
     function animate() {
         requestAnimationFrame(animate);
 
